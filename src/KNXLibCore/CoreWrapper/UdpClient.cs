@@ -15,13 +15,20 @@ namespace KNXLibCore.CoreWrapper
         public UdpClient(IPEndPoint _localEndpoint)
         {
             this._localEndpoint = _localEndpoint;
-            this.Client.Bind(this._localEndpoint);            
+            this.Client.Bind(this._localEndpoint);                  
         }
 
         internal async void Send(byte[] datagram, int length, IPEndPoint _remoteEndpoint)
         {
-            await this.SendAsync(datagram, length, _remoteEndpoint);            
-        }
+            try { 
+                await this.SendAsync(datagram, length, _remoteEndpoint);
+            }
+            catch (Exception ex)
+            {
+                //fired on socket close
+                Console.WriteLine("Error " + ex.Message);                
+            }
+}
 
         //internal void JoinMulticastGroup(IPAddress ipAddress, IPAddress localIp)
         //{
@@ -29,10 +36,13 @@ namespace KNXLibCore.CoreWrapper
         //}
 
         internal void Close()
-        {            
-            //
+        {
+            this.Client.Shutdown(System.Net.Sockets.SocketShutdown.Both);
+            this.Client.Dispose();
+            this.Dispose();
+            //this.Client = null;
         }
-        
+
         byte[] lastData;
         IPEndPoint lastEndPoint;
         internal void BeginReceive(Action<UdpClient> onReceive, object[] v)
@@ -41,10 +51,18 @@ namespace KNXLibCore.CoreWrapper
 
             Task.Run(async () => 
             {
-                var result = await this.ReceiveAsync();
-                lastData = result.Buffer;
-                lastEndPoint = result.RemoteEndPoint;                                
-                onReceive(this);
+                try
+                {
+                    var result = await this.ReceiveAsync();
+                    lastData = result.Buffer;
+                    lastEndPoint = result.RemoteEndPoint;
+                    onReceive(this);
+                }
+                catch (Exception ex)
+                {
+                    //fired on socket close
+                    Console.WriteLine("Error " + ex.Message);
+                }
             });            
         }
 
@@ -55,11 +73,20 @@ namespace KNXLibCore.CoreWrapper
 
         internal byte[] Receive(ref IPEndPoint _localEndpoint)
         {
-            var data = ReceiveAsync().Result;
-            if (data != null)
-                return data.Buffer;
-            else
+            try
+            {
+                var data = ReceiveAsync().Result;
+                if (data != null)
+                    return data.Buffer;
+                else
+                    return null;
+            }
+            catch (Exception ex)
+            {
+                //fired on socket close
+                Console.WriteLine("Error " + ex.Message);
                 return null;
+            }
         }
 
         //internal void DropMulticastGroup(IPAddress ipAddress)

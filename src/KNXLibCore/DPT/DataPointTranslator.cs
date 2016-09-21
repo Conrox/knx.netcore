@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace KNXLib.DPT
 {
-    internal sealed class DataPointTranslator
+    public sealed class DataPointTranslator
     {
         public static readonly DataPointTranslator Instance = new DataPointTranslator();
         private readonly IDictionary<string, DataPoint> _dataPoints = new Dictionary<string, DataPoint>();

@@ -10,7 +10,7 @@ namespace KNXLib.DPT
         {
             get
             {
-                return new[] { "9.001" };
+                return new[] { "9.001", "9.004", "9.005" };
             }
         }
 
