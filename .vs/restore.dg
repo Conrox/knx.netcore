@@ -1,2 +1,5 @@
-#:C:\_ConroxNET\knx.netcore\src\KNXTestRouting\KNXTestRouting.xproj
-C:\_ConroxNET\knx.netcore\src\KNXTestRouting\KNXTestRouting.xproj|C:\_ConroxNET\knx.netcore\src\KNXLibCore\KNXLibCore.xproj
+#:C:\_Conrox.NET\knx.netcore\src\KNXLibCore\KNXLibCore.xproj
+#:C:\_Conrox.NET\knx.netcore\src\KNXTestTunneling\KNXTestTunneling.xproj
+C:\_Conrox.NET\knx.netcore\src\KNXTestTunneling\KNXTestTunneling.xproj|C:\_Conrox.NET\knx.netcore\src\KNXLibCore\KNXLibCore.xproj
+#:C:\_Conrox.NET\knx.netcore\src\KNXTestRouting\KNXTestRouting.xproj
+C:\_Conrox.NET\knx.netcore\src\KNXTestRouting\KNXTestRouting.xproj|C:\_Conrox.NET\knx.netcore\src\KNXLibCore\KNXLibCore.xproj

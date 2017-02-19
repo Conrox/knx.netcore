@@ -23,6 +23,7 @@ namespace KNXLib.DPT
             //                .Where(p => type.IsAssignableFrom(p) && p != type);
 
             IEnumerable<Type> types = new List<Type>() {
+                typeof(DataPoint1Bit),
                 typeof(DataPoint2ByteFloatTemperature),
                 typeof(DataPoint3BitControl),
                 typeof(DataPoint8BitNoSignNonScaledValue1UCount),
@@ -51,7 +52,7 @@ namespace KNXLib.DPT
                 if (_dataPoints.TryGetValue(type, out dpt))
                     return dpt.FromDataPoint(data);
             }
-            catch
+            catch (Exception)
             {
             }
 

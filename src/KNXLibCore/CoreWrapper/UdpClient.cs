@@ -37,8 +37,10 @@ namespace KNXLibCore.CoreWrapper
 
         internal void Close()
         {
-            this.Client.Shutdown(System.Net.Sockets.SocketShutdown.Both);
-            this.Client.Dispose();
+            if(this.Client != null)
+                this.Client.Shutdown(System.Net.Sockets.SocketShutdown.Both);
+            if (this.Client != null)
+                this.Client.Dispose();
             this.Dispose();
             //this.Client = null;
         }
