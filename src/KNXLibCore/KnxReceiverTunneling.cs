@@ -38,7 +38,7 @@ namespace KNXLib
         {
             try
             {
-                while (!_receiverThread.ThreadIsAborted)
+                while (!_receiverThread.ThreadIsAborted && _udpClient.Client != null)
                 {
                     var datagram = _udpClient.Receive(ref _localEndpoint);
                     ProcessDatagram(datagram);

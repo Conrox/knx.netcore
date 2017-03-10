@@ -15,7 +15,7 @@ namespace KNXTestTunneling
             /*test output werte richtig anzeigen
 testen knx connection unten abschalten
 auf nas probiren*/
-            _connection = new KnxConnectionTunneling("192.168.100.250", 3671, "192.168.100.194", 3671) { Debug = false };
+            _connection = new KnxConnectionTunneling("192.168.100.250", 3671, "192.168.100.166", 3671) { Debug = false };
             //_connection = new KnxConnectionTunneling("192.168.100.250", 3671, "172.17.0.2", 3672) { Debug = true };
             //_connection = new KnxConnectionTunneling("192.168.100.250", 3671, "192.168.100.90", 3672) { Debug = false }; /*DOCKER NAS*/
             //_connection = new KnxConnectionTunneling("192.168.100.250", 3671, "192.168.100.172", 3671) { Debug = false };
@@ -34,15 +34,19 @@ auf nas probiren*/
 
             Console.ReadLine();
             Console.WriteLine("send");
-            _connection.Action("6/0/5", true);
+            _connection.Action("2/1/3", true);
             Console.ReadLine();
-            _connection.Action("6/0/5", false);
+            _connection.Action("2/1/3", false);
 
             Console.ReadLine();
 
             _connection.KnxDisconnectedDelegate -= Disconnected;
             _connection.Disconnect();
+
+            Console.ReadLine();
             Environment.Exit(0);
+
+           
         }
         private static void Event(string address, string state)
         {
